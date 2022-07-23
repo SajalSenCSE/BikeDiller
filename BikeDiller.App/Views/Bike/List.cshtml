@@ -1,0 +1,109 @@
+﻿
+@model BikeDiller.App.Models.BikeModels.BikeListVM
+@using BikeDiller.App.Helpers 
+
+@{ 
+    ViewData["Controller"] = "Bike";
+    ViewData["Action"] = "List";
+}
+<br />
+<form asp-action="List" method="get">
+    <div>
+        <p> 
+            Find Make : <input type="text" name="searchString" value="@ViewBag.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-info"/>
+            <a asp-action="List"> Remove Filter </a>
+        </p>
+    </div>
+
+</form>
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Bike of List</h2>
+    </div>
+    @if ((User.IsInRole(Roles.Admin)) || (User.IsInRole(Roles.Executive)))
+    {
+        <div class="col-6 text-right">
+            <a class="btn btn-info" asp-action="Create">Create</a>
+        </div>
+    }
+
+    <div class="col-12">
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    Image
+                </th>
+                <th>
+                    Bike Details
+                </th>
+                <th>
+                    <a asp-action="List"
+                       asp-route-sortOrder="@ViewBag.PriceSortParams"
+                       asp-route-pageNumber="@Model.PageNumber">Price</a>
+                </th>
+                <th>
+                    Seller Info
+                </th>
+                @if ((User.IsInRole(Roles.Admin)) || (User.IsInRole(Roles.Executive)))
+                {
+                    <th class="text-right">
+                        Action
+                    </th>
+                }
+                else
+                {
+                    <th class="text-right">
+                        View Details
+                    </th>
+                }
+
+            </tr>
+            @foreach (var item in Model.Bikes)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Images/@item.ImagePath" width="150" height="100" />
+                    </td>
+                    <td>
+                        <b>@item.Make.Name (@item.Year)</b><br />
+                        <b>Model : @item.Model.Name</b><br />
+                        <b>Mileage :@item.Mileage</b>
+                    </td>
+
+                    <td>
+                        <b>Price :@item.Price  @item.Currency.Name</b>
+                    </td>
+                    <td>
+                        <b>Seller Name :@item.SellerName</b><br />
+                        <b>Seller Email :@item.SellerEmail</b><br />
+                        <b>Seller Email :@item.SellerPhone</b><br />
+                    </td>
+                    <td class="text-right">
+                        @if ((User.IsInRole(Roles.Admin)) || (User.IsInRole(Roles.Executive)))
+                        {
+                            <div class="btn btn-group">
+                                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <form method="post" asp-action="Delete">
+                                    <input onclick="if (!confirm('Are you Sure')){ return false }" type="submit" class="btn btn-danger rounded-0" asp-action="Delete" asp-route-id="@item.Id" value="Delete" />
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="btn btn-group">
+                                <a class="btn btn-info" asp-action="View" asp-route-id="@item.Id">View</a>
+                            </div>
+                        }
+
+
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <partial name="_PaginationPartial" view-data="ViewData" model="Model" />
+
+
+    </div>
+</div>

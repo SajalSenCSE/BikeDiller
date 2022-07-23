@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BikeDiller.Repositories.Abstraction\BikeDiller.Repositories.Abstraction.csproj" />
+    <ProjectReference Include="..\BikeDiller.Repositories\BikeDiller.Repositories.csproj" />
+    <ProjectReference Include="..\BikeDiller.Services.Abstractions\BikeDiller.Services.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

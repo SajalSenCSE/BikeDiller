@@ -1,0 +1,153 @@
+﻿@model BikeDiller.App.Models.BikeModels.BikeCreateVM
+
+
+
+
+<script>
+    $(document).ready(function () {
+        var MakeDDl = $("#Make");
+        var ModelDDl = $("#Model");
+        
+        
+        MakeDDl.change(function () {
+            if ($(this).val() == "0") {
+                ModelDDl.prop('disabled', true);
+                ModelDDl.val(0);
+            } else {
+
+                $.ajax({
+                    url: "/api/models/" + $(this).val(),
+                    method: "get",
+                    success: function (data) {
+                        ModelDDl.prop('disabled', false);
+                        ModelDDl.empty();
+                        ModelDDl.append($('<option/>', { value: '0', text: '--- Select Model--' }));
+                        $(data).each(function (intex, item) {
+                            ModelDDl.append($('<option/>', { value: item.id, text: item.name }));
+                        })
+                    }
+                })
+            }
+        })
+    })
+
+</script>
+
+
+<br />
+<h2 class="text-info">Add new Bike</h2>
+
+<form method="post" enctype="multipart/form-data" asp-action="Create">
+
+    <div class="form-group row">
+
+        <div class="col-2">
+            <label asp-for="@Model.Makes"></label>
+        </div>
+        <div class="col-4">
+            <select class="form-control" id="Make" asp-for="@Model.MakeId" asp-items="@(new SelectList(Model.Makes,"Id","Name"))">
+                <option vlaue="@Model.ModelId"> ----Select Make---</option>
+            </select>
+            <span asp-validation-for="MakeId" class="text-danger"></span>
+        </div>
+        
+        <div class="col-auto">
+            <label asp-for="ImagePathFile"></label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" asp-for="ImagePathFile" />
+        </div>
+
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="@Model.Models"></label>
+        </div>
+        <div class="col-4">
+            <select class="form-control" id="Model" asp-for="@Model.ModelId" asp-items="@(new SelectList(Model.Models,"Id","Name"))">
+                <option vlaue=""> ----Select Make---</option>
+            </select>
+            <span asp-validation-for="ModelId" class="text-danger"></span>
+        </div>
+
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Year"></label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" asp-for="Year" />
+            <span asp-validation-for="Year" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Mileage"></label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" asp-for="Mileage" />
+            <span asp-validation-for="Mileage" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Features"></label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" asp-for="Features" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Price"></label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" asp-for="Price" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="col-2">
+            <label asp-for="@Model.Currenies"></label>
+        </div>
+        <div class="col-4">
+            <select class="form-control" id="SelectCAtList" asp-for="@Model.CurrencyId" asp-items="@(new SelectList(Model.Currenies,"Id","Name"))">
+                <option vlaue=""> ----Select Make---</option>
+            </select>
+            <span asp-validation-for="CurrencyId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="SellerName"></label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" asp-for="SellerName" />
+            <span asp-validation-for="SellerName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="SellerEmail"></label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" asp-for="SellerEmail" />
+            <span asp-validation-for="SellerEmail" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="SellerPhone"></label>
+        </div>
+        <div class="col-4">
+            <input type="number" class="form-control" asp-for="SellerPhone" />
+            <span asp-validation-for="SellerPhone" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn  btn-primary" value="Create" />
+        <a class="btn btn-success" asp-action="List">Back</a>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

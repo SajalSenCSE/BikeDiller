@@ -1,0 +1,77 @@
+﻿
+@using BikeDiller.App.Helpers
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BikeDiller.App</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/2a0309b0c5.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <link rel="stylesheet" type="text/css" href="file:///C:/Users/sajal/Downloads/fontawesome-free-6.1.1-web/css/all.css" />
+</head>
+<body>
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Bike" asp-action="List">BikeDiller</a>
+               
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" asp-controller="Bike" asp-action="List">Home</a>
+                        </li>
+
+                        @if (User.IsInRole(Roles.Admin) || User.IsInRole(Roles.Executive))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Model" asp-action="List">Models</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Make" asp-action="List">Makes</a>
+                            </li>
+                            @if (User.IsInRole(Roles.Admin))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                </li>
+                            }
+
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Bike" asp-action="List">Bike</a>
+                        </li>
+
+
+                    </ul>
+
+                    <partial name="_LoginPartial"/>
+                    
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <br /><br /><br />
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="https://kit.fontawesome.com/2a0309b0c5.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
