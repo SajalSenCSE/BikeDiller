@@ -23,10 +23,13 @@
             <div class="container-fluid">
                 <a class="navbar-brand" asp-controller="Bike" asp-action="List">BikeDiller</a>
                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" asp-controller="Bike" asp-action="List">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Bike" asp-action="List">Bike</a>
                         </li>
 
                         @if (User.IsInRole(Roles.Admin) || User.IsInRole(Roles.Executive))
@@ -36,25 +39,28 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Make" asp-action="List">Makes</a>
+                                <a class="nav-link" asp-controller="Make" asp-action="List">Brand</a>
                             </li>
-                            @if (User.IsInRole(Roles.Admin))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                                </li>
-                            }
-
                         }
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Bike" asp-action="List">Bike</a>
-                        </li>
-
 
                     </ul>
-
-                    <partial name="_LoginPartial"/>
                     
+                    
+                    
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        @if (User.IsInRole(Roles.Admin))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            </li>
+                        }
+                        <partial name="_LoginPartial" />
+
+                    </ul>
+                    
+
                 </div>
             </div>
         </nav>
