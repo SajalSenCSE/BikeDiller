@@ -24,7 +24,7 @@
     @if ((User.IsInRole(Roles.Admin)) || (User.IsInRole(Roles.Executive)))
     {
         <div class="col-6 text-right">
-            <a class="btn btn-info" asp-action="Create">Create</a>
+            <a class="btn btn-info" asp-action="Create"><i class="fa fa-motorcycle" aria-hidden="true"></i>&nbsp Add New Bike </a>
         </div>
     }
 
@@ -83,16 +83,16 @@
                         @if ((User.IsInRole(Roles.Admin)) || (User.IsInRole(Roles.Executive)))
                         {
                             <div class="btn btn-group">
-                                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                 <form method="post" asp-action="Delete">
-                                    <input onclick="if (!confirm('Are you Sure')){ return false }" type="submit" class="btn btn-danger rounded-0" asp-action="Delete" asp-route-id="@item.Id" value="Delete" />
+                                    <input onclick="if (!confirm('Are you Sure')){ return false }" type="submit" class="btn btn-danger rounded-0" asp-action="Delete" asp-route-id="@item.Id" value="" /><i class="fa-solid fa-trash-can"></i>
                                 </form>
                             </div>
                         }
                         else
                         {
                             <div class="btn btn-group">
-                                <a class="btn btn-info" asp-action="View" asp-route-id="@item.Id">View</a>
+                                <a class="btn btn-info" asp-action="View" asp-route-id="@item.Id"><i class="fa-solid fa-eye"></i></a>
                             </div>
                         }
 
