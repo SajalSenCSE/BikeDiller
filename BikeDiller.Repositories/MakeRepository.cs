@@ -24,7 +24,7 @@ namespace BikeDiller.Repositories
             return await _db.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> AddNewMake(Make make)
+        public async Task<bool> AddNew(Make make)
         {
              _db.Makes.Add(make);
 
@@ -32,12 +32,12 @@ namespace BikeDiller.Repositories
 
         }
 
-        public async Task<IEnumerable<Make>> GetAllMakes()
+        public async Task<IEnumerable<Make>> GetAll()
         {
             return await _db.Makes.ToListAsync();
         }
 
-        public async Task<bool> DeleteMake(Make make)
+        public async Task<bool> DeleteEntity(Make make)
         {
             _db.Makes.Remove(make);
             return await Save();
@@ -48,7 +48,7 @@ namespace BikeDiller.Repositories
             return await _db.Makes.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<bool> UpdateMake(Make make)
+        public async Task<bool> UpdateEntity(Make make)
         {
             _db.Makes.Update(make);
             return await Save();

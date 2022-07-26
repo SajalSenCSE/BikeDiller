@@ -30,7 +30,7 @@ namespace BikeDiller.App.Controllers
 
         public async Task<IActionResult> List()
         {
-            var modelList =await _modelService.GetAllModels();
+            var modelList =await _modelService.GetAll();
             var newObj = new ModelListVM()
             {
                 Models = modelList.ToList()
@@ -41,7 +41,7 @@ namespace BikeDiller.App.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var makes =await _makeService.GetAllMakes();
+            var makes =await _makeService.GetAll();
             var obj = new ModelCreateVM()
             {
                 Makes = makes.ToList()
@@ -60,7 +60,7 @@ namespace BikeDiller.App.Controllers
                     Name = model.Name,
                     MakeId = model.MakeId
                 };
-                var result =await _modelService.AddModel(newModel);
+                var result =await _modelService.AddNew(newModel);
                 if (result)
                 {
 
@@ -76,7 +76,7 @@ namespace BikeDiller.App.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var oldModel = await _modelService.GetById(id);
-            var makeList = await _makeService.GetAllMakes();
+            var makeList = await _makeService.GetAll();
             var newModel = new ModelEditVM()
             {
                 Id = oldModel.Id,
@@ -94,7 +94,7 @@ namespace BikeDiller.App.Controllers
             if (ModelState.IsValid)
             {
                 var newModel = _mapper.Map<Model>(model);
-                bool result =await _modelService.Update(newModel);
+                bool result =await _modelService.UpdateEntity(newModel);
                 if (result)
                 {
                     return RedirectToAction("List");
@@ -118,7 +118,7 @@ namespace BikeDiller.App.Controllers
             {
                 return NoContent();
             }
-            bool result =await _modelService.Delete(aModel);
+            bool result =await _modelService.DeleteEntity(aModel);
 
             if (result)
             {

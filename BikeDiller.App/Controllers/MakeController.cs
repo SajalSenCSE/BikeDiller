@@ -27,7 +27,7 @@ namespace BikeDiller.App.Controllers
         //Make/list
         public async Task<IActionResult> List()
         {
-            var result = await _makeService.GetAllMakes();
+            var result = await _makeService.GetAll();
 
             var mapperListVM = new MakeListVM()
             {
@@ -49,7 +49,7 @@ namespace BikeDiller.App.Controllers
             {
                 var newMake = _mapper.Map<Make>(model);
 
-                bool result = await _makeService.AddNewMake(newMake);
+                bool result = await _makeService.AddNew(newMake);
                 if (result)
                 {
                     return RedirectToAction("List");
@@ -63,18 +63,18 @@ namespace BikeDiller.App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return View("Faild");
             }
-            var aMake =await _makeService.GetById(id);
+            var aMake =await _makeService.GetById((int)id);
             if (aMake == null)
             {
                 return NoContent();
             }
-            bool result =await _makeService.DeleteMake(aMake);
+            bool result =await _makeService.DeleteEntity(aMake);
             if (result)
             {
                 return RedirectToAction("List");
@@ -101,7 +101,7 @@ namespace BikeDiller.App.Controllers
             if (ModelState.IsValid)
             {
                 var newMake = _mapper.Map<Make>(model);
-                bool result =await _makeService.UpdateMake(newMake);
+                bool result =await _makeService.UpdateEntity(newMake);
                 if (result)
                 {
                     return RedirectToAction("List");

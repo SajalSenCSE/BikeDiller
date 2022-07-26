@@ -53,7 +53,7 @@ namespace BikeDiller.App.Controllers
             ViewBag.PriceSortParams = String.IsNullOrEmpty(sortOrder) ? "Price_Desc" : "";
             int excludeRecord = (pageSize * pageNumber) - pageSize;
 
-            var bikes = await _bikeService.GetAllBike();
+            var bikes = await _bikeService.GetAll();
 
             var bikes2 = from b in bikes select b;
 
@@ -99,8 +99,8 @@ namespace BikeDiller.App.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var modelList =await _modelService.GetAllModels();
-            var makeList = await _makeService.GetAllMakes();
+            var modelList =await _modelService.GetAll();
+            var makeList = await _makeService.GetAll();
             var currencyList = await _currencyService.GetCurrencies();
             var viewObj = new BikeCreateVM()
             {
@@ -121,7 +121,7 @@ namespace BikeDiller.App.Controllers
             {
                 var newBike = _mapper.Map<Bike>(model);
 
-                bool result =await _bikeService.AddBike(newBike);
+                bool result =await _bikeService.AddNew(newBike);
                 if (result)
                 {
                     return RedirectToAction("List");
@@ -143,7 +143,7 @@ namespace BikeDiller.App.Controllers
             {
                 return NoContent();
             }
-            bool result = await _bikeService.DeleteBike(aBike);
+            bool result = await _bikeService.DeleteEntity(aBike);
             if (result)
             {
                 return RedirectToAction("List");
@@ -160,9 +160,9 @@ namespace BikeDiller.App.Controllers
             }
             var oldBike = await _bikeService.GetById(id);
 
-            var modelList2 = await _modelService.GetAllModels();
+            var modelList2 = await _modelService.GetAll();
             var modelList = modelList2.Where(x => x.MakeId == oldBike.MakeId);
-            var makeList = await _makeService.GetAllMakes();
+            var makeList = await _makeService.GetAll();
             var currencyList = await _currencyService.GetCurrencies();
 
             if (oldBike == null)
@@ -195,7 +195,7 @@ namespace BikeDiller.App.Controllers
             if (ModelState.IsValid)
             {
                 var updatedBike = _mapper.Map<Bike>(model);
-                bool result =await _bikeService.UpdateBike(updatedBike);
+                bool result =await _bikeService.UpdateEntity(updatedBike);
                 if (result)
                 {
                     return RedirectToAction("List");
@@ -210,8 +210,8 @@ namespace BikeDiller.App.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> View(int id)
         {
-            var modelList = await _modelService.GetAllModels();
-            var makeList = await _makeService.GetAllMakes();
+            var modelList = await _modelService.GetAll();
+            var makeList = await _makeService.GetAll();
             var currencyList = await _currencyService.GetCurrencies();
             if (id == 0)
             {
@@ -262,7 +262,7 @@ namespace BikeDiller.App.Controllers
         public async Task<IEnumerable<ModelEditVM>> ModelsList(int id)   
         {
             var modelList = await _modelService
-                                 .GetAllModels();
+                                 .GetAll();
 
             var result = modelList.Where(x => x.MakeId == id).ToList();
             var obj = _mapper.Map<IEnumerable<ModelEditVM>>(result);

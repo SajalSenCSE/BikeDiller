@@ -6,16 +6,8 @@ using System.Threading.Tasks;
 
 namespace BikeDiller.Services.Abstractions
 {
-    public interface IMakeService
+    public interface IMakeService:IBaseService<Make>
     {
-        Task<IEnumerable<Make>> GetAllMakes();
-        Task<Make> GetById(int id);
-
-        Task<bool> AddNewMake(Make make);
-
-        Task<bool> DeleteMake(Make make);
-
-        Task<bool> UpdateMake(Make make);
-
+        
     }
 }

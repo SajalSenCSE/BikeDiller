@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace BikeDiller.Repositories.Abstraction
 {
-    public interface IModelRepository
+    public interface IModelRepository:IBaseRepository<Model>
     {
-        Task<IEnumerable<Model>> GetAllModels();
-        Task<Model> GetById(int id);
-        Task<bool> AddModel(Model model);
-        Task<bool> Delete(Model model);
-        Task<bool> Update(Model model);
+        
     }
 }

@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace BikeDiller.Services.Abstractions
 {
-    public interface IModelService
+    public interface IModelService:IBaseService<Model>
     {
-        Task<IEnumerable<Model>> GetAllModels();
-        Task<Model> GetById(int id);
-        Task<bool> AddModel(Model model);
-        Task<bool> Delete(Model model);
-        Task<bool> Update(Model model);
+        
     }
 }

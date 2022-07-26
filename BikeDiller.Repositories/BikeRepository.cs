@@ -22,19 +22,19 @@ namespace BikeDiller.Repositories
         {
             return await _db.SaveChangesAsync()>0;
         }
-        public Task<bool> AddBike(Bike bike)
+        public Task<bool> AddNew(Bike bike)
         {
             _db.Bikes.Add(bike);
             return Save();
         }
 
-        public async Task<bool> DeleteBike(Bike bike)
+        public async Task<bool> DeleteEntity(Bike bike)
         {
             _db.Bikes.Remove(bike);
             return await Save();
         }
 
-        public async Task<IEnumerable<Bike>> GetAllBike()
+        public async Task<IEnumerable<Bike>> GetAll()
         {
             return await _db.Bikes
                             .Include(x=>x.Make)
@@ -51,7 +51,7 @@ namespace BikeDiller.Repositories
                             .FirstOrDefaultAsync(z => z.Id == id);
         }
 
-        public async Task<bool> UpdateBike(Bike bike)
+        public async Task<bool> UpdateEntity(Bike bike)
         {
             _db.Bikes.Update(bike);
             return await Save();

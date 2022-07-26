@@ -17,19 +17,19 @@ namespace BikeDiller.Services
             _bikeRepository = bikeRepository;
         }
 
-        public async Task<bool> AddBike(Bike bike)
+        public async Task<bool> AddNew(Bike bike)
         {
-            return await _bikeRepository.AddBike(bike);
+            return await _bikeRepository.AddNew(bike);
         }
 
-        public async Task<bool> DeleteBike(Bike bike)
+        public async Task<bool> DeleteEntity(Bike bike)
         {
-            return await _bikeRepository.DeleteBike(bike);
+            return await _bikeRepository.DeleteEntity(bike);
         }
 
-        public async Task<IEnumerable<Bike>> GetAllBike()
+        public async Task<IEnumerable<Bike>> GetAll()
         {
-            return await _bikeRepository.GetAllBike();
+            return await _bikeRepository.GetAll();
         }
 
         public async Task<Bike> GetById(int id)
@@ -37,9 +37,9 @@ namespace BikeDiller.Services
             return await _bikeRepository.GetById(id);
         }
 
-        public async Task<bool> UpdateBike(Bike bike)
+        public async Task<bool> UpdateEntity(Bike bike)
         {
-            return await _bikeRepository.UpdateBike(bike);
+            return await _bikeRepository.UpdateEntity(bike);
         }
     }
 }
