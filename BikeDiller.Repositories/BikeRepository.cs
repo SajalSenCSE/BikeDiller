@@ -9,32 +9,18 @@ using System.Threading.Tasks;
 
 namespace BikeDiller.Repositories
 {
-    public class BikeRepository : IBikeRepository
+    public class BikeRepository : BaseRepository<Bike> ,IBikeRepository
     {
         BikeDillerDbContext _db;
 
-        public BikeRepository(BikeDillerDbContext db)
+        public BikeRepository(BikeDillerDbContext db):base(db)
         {
             _db = db;
         }
 
-        private async Task<bool> Save()
-        {
-            return await _db.SaveChangesAsync()>0;
-        }
-        public Task<bool> AddNew(Bike bike)
-        {
-            _db.Bikes.Add(bike);
-            return Save();
-        }
-
-        public async Task<bool> DeleteEntity(Bike bike)
-        {
-            _db.Bikes.Remove(bike);
-            return await Save();
-        }
-
-        public async Task<IEnumerable<Bike>> GetAll()
+        
+        
+        public override async Task<IEnumerable<Bike>> GetAll()
         {
             return await _db.Bikes
                             .Include(x=>x.Make)
@@ -43,7 +29,7 @@ namespace BikeDiller.Repositories
                             .ToListAsync();
         }
 
-        public async Task<Bike> GetById(int id)
+        public override async Task<Bike> GetById(int id)
         {
             return await _db.Bikes
                             .Include(x => x.Make)
@@ -51,10 +37,7 @@ namespace BikeDiller.Repositories
                             .FirstOrDefaultAsync(z => z.Id == id);
         }
 
-        public async Task<bool> UpdateEntity(Bike bike)
-        {
-            _db.Bikes.Update(bike);
-            return await Save();
-        }
+       
+
     }
 }
