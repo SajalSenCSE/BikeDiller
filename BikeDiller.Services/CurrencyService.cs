@@ -8,18 +8,15 @@ using System.Threading.Tasks;
 
 namespace BikeDiller.Services
 {
-    public class CurrencyService:ICurrencyService
+    public class CurrencyService:BaseService<Currency>,ICurrencyService
     {
         ICurrencyRepository _currencyRepository;
 
-        public CurrencyService(ICurrencyRepository currencyRepository)
+        public CurrencyService(ICurrencyRepository currencyRepository):base(currencyRepository)
         {
             _currencyRepository = currencyRepository;
         }
 
-        public async Task<IEnumerable<Currency>> GetCurrencies()
-        {
-            return await _currencyRepository.GetCurrencies();
-        }
+       
     }
 }

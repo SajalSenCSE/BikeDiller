@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BikeDiller.Repositories.Abstraction
 {
-    public interface ICurrencyRepository
+    public interface ICurrencyRepository:IBaseRepository<Currency>
     {
-        Task<IEnumerable<Currency>> GetCurrencies();
+        
     }
 }

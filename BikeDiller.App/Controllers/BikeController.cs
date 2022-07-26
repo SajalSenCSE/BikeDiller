@@ -101,7 +101,7 @@ namespace BikeDiller.App.Controllers
         {
             var modelList =await _modelService.GetAll();
             var makeList = await _makeService.GetAll();
-            var currencyList = await _currencyService.GetCurrencies();
+            var currencyList = await _currencyService.GetAll();
             var viewObj = new BikeCreateVM()
             {
                 Makes = makeList.ToList(),
@@ -163,7 +163,7 @@ namespace BikeDiller.App.Controllers
             var modelList2 = await _modelService.GetAll();
             var modelList = modelList2.Where(x => x.MakeId == oldBike.MakeId);
             var makeList = await _makeService.GetAll();
-            var currencyList = await _currencyService.GetCurrencies();
+            var currencyList = await _currencyService.GetAll();
 
             if (oldBike == null)
             {
@@ -212,7 +212,7 @@ namespace BikeDiller.App.Controllers
         {
             var modelList = await _modelService.GetAll();
             var makeList = await _makeService.GetAll();
-            var currencyList = await _currencyService.GetCurrencies();
+            var currencyList = await _currencyService.GetAll();
             if (id == 0)
             {
                 return NoContent();

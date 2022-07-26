@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BikeDiller.Services.Abstractions
 {
-    public interface ICurrencyService
+    public interface ICurrencyService:IBaseService<Currency>
     {
-        Task<IEnumerable<Currency>> GetCurrencies();
+        
     }
 }

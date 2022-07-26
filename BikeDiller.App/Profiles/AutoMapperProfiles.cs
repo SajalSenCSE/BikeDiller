@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BikeDiller.App.Models.BikeModels;
+using BikeDiller.App.Models.CurrencyModels;
 using BikeDiller.App.Models.MakeModels;
 using BikeDiller.App.Models.ModelModels;
 using BikeDiller.EntityModels;
@@ -25,6 +26,11 @@ namespace BikeDiller.App.Profiles
             CreateMap<Bike, BikeCreateVM>().ReverseMap();
             CreateMap<BikeListVM, Bike>().ReverseMap();
             CreateMap<Bike, BikeEditVM>().ReverseMap();
+
+            CreateMap<CurrencyCreateVM, Currency>().ReverseMap();
+            CreateMap<Currency, CurrencyListVM>().ReverseMap();
+            CreateMap<CurrencyEditVM, Currency>().ReverseMap();
+
 
 
 

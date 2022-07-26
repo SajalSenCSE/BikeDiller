@@ -1,0 +1,42 @@
+﻿@model BikeDiller.App.Models.CurrencyModels.CurrencyListVM
+
+
+
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Currency</h2>
+
+    </div>
+    <div class="col-6 text-right">
+        <a class="btn btn-info" asp-action="Create">Create</a>
+    </div>
+    <div class="col-12">
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    Name
+                </th>
+                <th class="text-right">
+                    Action
+                </th>
+            </tr>
+            @foreach (var item in Model.Currencies)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.Name)
+                    </td>
+                    <td class="text-right">
+                        <div class="btn btn-group">
+                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
+                            <form method="post" asp-action="Delete">
+                                <input onclick="if (!confirm('Are you Sure')){ return false }" type="submit" class="btn btn-danger rounded-0" asp-action="Delete" asp-route-id="@item.Id" value="Delete" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

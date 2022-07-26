@@ -9,18 +9,22 @@ using System.Threading.Tasks;
 
 namespace BikeDiller.Repositories
 {
-    public class CurrencyRepository : ICurrencyRepository
+    public class CurrencyRepository : BaseRepository<Currency>,ICurrencyRepository
     {
         BikeDillerDbContext _db;
 
-        public CurrencyRepository(BikeDillerDbContext db)
+        public CurrencyRepository(BikeDillerDbContext db):base(db)
         {
             _db = db;
         }
 
-        public async Task<IEnumerable<Currency>> GetCurrencies()
+        public override async Task<Currency> GetById(int id)
         {
-            return await _db.Currencies.ToListAsync();
+            return await _db.Currencies.FirstOrDefaultAsync(x=>x.Id==id);
         }
+
+       
+
+        
     }
 }

@@ -29,13 +29,13 @@ namespace BikeDiller.Repositories
         {
             return await _db.SaveChangesAsync() > 0;
         }
-        public async Task<bool> AddNew(T entity)
+        public virtual async Task<bool> AddNew(T entity)
         {
             _db.Add(entity);
             return await Save();
         }
 
-        public async Task<bool> DeleteEntity(T entity)
+        public virtual async Task<bool> DeleteEntity(T entity)
         {
             _db.Remove(entity);
             return await Save();
@@ -49,7 +49,7 @@ namespace BikeDiller.Repositories
         public abstract Task<T> GetById(int id);
        
 
-        public async Task<bool> UpdateEntity(T entity)
+        public virtual async Task<bool> UpdateEntity(T entity)
         {
             _db.Update(entity);
             return await Save();
